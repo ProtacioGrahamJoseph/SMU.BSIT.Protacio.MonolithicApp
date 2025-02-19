@@ -1,0 +1,16 @@
+﻿@model Product
+
+<h1>Details</h1>
+
+<strong>@Model.Id</strong>
+<p>@Model.Name</p>
+<p>@Model.Type</p>
+<p>@Model.Manufacturer</p>
+
+<a href="/Products/edit?id=Model.Id">Edit</a>
+<a href="/Products/delete?id=Model.Id">Delete</a>
+
+else
+{
+    <p>No product found!</p>
+}

@@ -1,0 +1,25 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+@if(!string.IsNullOrEmpty(ViewBag.ProductId))
+{
+    <p>Product submitted successfully! ID: @ViewBag.ProductId</p>
+}
+<h1>CREATE PRODUCT</h1>
+
+<form method="post" asp-action ="SubmitProduct" asp-controller="Products">
+    <div>
+        <label for="product_name">Product:</label>
+        <input id="product_name" asp-for="Name" type="text" />
+
+        <label for="product_type">Type:</label>
+        <input id="product_type" asp-for="Type" type="text" />
+
+        <label for="product_manufacturer">Manufacturer</label>
+        <input id="product_manufacturer" asp-for="Manufacturer" type="text" />
+    </div>
+    <button type="submit">Submit</button>
+</form>

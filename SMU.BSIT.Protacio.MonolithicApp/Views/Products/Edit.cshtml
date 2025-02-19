@@ -1,0 +1,17 @@
+﻿@model Product
+
+
+<form method="post" asp-action="SubmitProduct" asp-controller="Products">
+    <div>
+        <input id="product_id" asp-for="Id" type="number" value="@Model.Id" />
+        <label for="product_name">Product:</label>
+        <input id="product_name" asp-for="Name" type="text" />
+
+        <label for="product_type">Type:</label>
+        <input id="product_type" asp-for="Type" type="text" />
+
+        <label for="product_manufacturer">Manufacturer</label>
+        <input id="product_manufacturer" asp-for="Manufacturer" type="text" />
+    </div>
+    <button type="submit">Submit</button>
+</form>
