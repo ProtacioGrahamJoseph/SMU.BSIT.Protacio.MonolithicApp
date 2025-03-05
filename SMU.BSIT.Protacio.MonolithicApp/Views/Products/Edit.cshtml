@@ -1,7 +1,7 @@
-﻿@model Product
+﻿@model SMU.BSIT.Protacio.MonolithicApp.Models.Product
 
 
-<form method="post" asp-action="SubmitProduct" asp-controller="Products">
+<form method="post" asp-action="EditProduct" asp-controller="Products">
     <div>
         <input id="product_id" asp-for="Id" type="number" value="@Model.Id" />
         <label for="product_name">Product:</label>

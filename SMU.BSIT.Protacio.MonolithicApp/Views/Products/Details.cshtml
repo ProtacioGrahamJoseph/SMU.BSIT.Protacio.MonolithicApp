@@ -1,16 +1,17 @@
 ﻿@model Product
 
-<h1>Details</h1>
+<h1>Product Details</h1>
+ 
+<strong>Product ID: </strong>@Model.Id
+<br>
+<strong>Name: </strong>@Model.Name
+<br>
+<strong>Type: </strong>@Model.Type
+<br>
+<strong>Manufacturer: </strong>@Model.Manufacturer
+<br>
 
-<strong>@Model.Id</strong>
-<p>@Model.Name</p>
-<p>@Model.Type</p>
-<p>@Model.Manufacturer</p>
-
-<a href="/Products/edit?id=Model.Id">Edit</a>
-<a href="/Products/delete?id=Model.Id">Delete</a>
-
-else
-{
-    <p>No product found!</p>
-}
+<a href="@Url.Action("Edit", "Products", new {id = Model.Id})" class="btn btn-primary">Edit</a>
+<form action="@Url.Action("Delete", "Products", new {id = Model.Id})" method="post" style="display:inline;">    
+     <button type ="submit" class = "btn btn-danger" onclick="return confirm"('Are you sure you want to deleete this product');">Delete</button>"
+</form>

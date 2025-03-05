@@ -19,21 +19,31 @@ namespace SMU.BSIT.Protacio.MonolithicApp.Services
 
         public Product GetById(int id)
         {
-            return db.Table<Product>().FirstOrDefault(p => p.Id == id);
+            TableQuery<Product> result = db.Table<Product>().Where(query => query.Id.Equals(id));
+            return result.FirstOrDefault();
         }
 
-        public void Update(Product product)
+        public void UpdateProduct(Product product)
         {
-            db.Update(product);
+           CheckProductIfExisting(product.Id);
+           db.Update(product);
         }
 
-        public void Delete(int id)
+        public void DeleteProductById(int id)
         {
-            var product = db.Table<Product>().FirstOrDefault(p => p.Id == id);
-            if (product != null)
+            CheckProductIfExisting(id);
+            db.Delete<Product>(id);
+        }
+
+        private void CheckProductIfExisting(int id)
+        {
+            var _product = GetById(id);
+            if (_product == null)
             {
-                db.Delete(product);
+                throw new Exception("Product does not exist!");
             }
         }
+
+
     }
 }

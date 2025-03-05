@@ -14,9 +14,6 @@ namespace SMU.BSIT.Protacio.MonolithicApp.Controllers
 
         public IActionResult Index()
         {
-            var products = _productService.GetAll();
-            var viewModel = new ProductsViewModel();
-
             ViewBag.ProductId = TempData["ProductId"]?.ToString();
             return View();
         }
@@ -30,23 +27,36 @@ namespace SMU.BSIT.Protacio.MonolithicApp.Controllers
 
         public IActionResult Details([FromQuery] int id)
         {
-            var product = _productService.GetById(id);
-            return View(product);
+            try
+            {
+                Product product = _productService.GetById(id);
+                return View(product);
+            }
+            catch(Exception)
+            {
+                return View();
+            }
         }
 
         [HttpGet]
-        public IActionResult Edit([FromQuery] int id)
+        public IActionResult EditProduct([FromQuery] int id)
         {
-            var product = _productService.GetById(id);
-            return View(product);
+            try
+            {
+                Product product = _productService.GetById(id);
+                return View(product);
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         [HttpPost]
-        public IActionResult Edit([FromQuery] int id, Product product)
+        public IActionResult EditProduct([FromQuery] int id, Product product)
         {
-            product.Id = id;
-            _productService.Update(product);
-            return RedirectToAction("Details", new { id = product.Id });
+            _productService.UpdateProduct(product);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete([FromQuery] int id)
@@ -54,10 +64,25 @@ namespace SMU.BSIT.Protacio.MonolithicApp.Controllers
             var product = _productService.GetById(id);
             if (product != null)
             {
-                _productService.Delete(id);
+                _productService.DeleteProductById(id);
                 TempData["ProductId"] = id;
             }
-            return RedirectToAction("Index");
+            return View(product);
+        }
+
+        [HttpPost, ActionName("Delete")]
+
+
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var product = _productService.GetById(id);
+            if (product != null)
+            {
+                _productService.DeleteProductById(id);
+                TempData["ProductId"] = id;
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }
